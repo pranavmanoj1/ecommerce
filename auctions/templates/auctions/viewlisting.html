@@ -1,0 +1,82 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="d-flex justify-content-center flex-wrap mt-4 mb-4">
+        <div class="card" style="width: 40%; margin-bottom: 20px;">
+            <img src="{{ listing.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ listing.title }}</h5>
+                <p class="card-text">{{ listing.startingbid }}$</p>
+                <p class="card-text"><small class="text-body-secondary">{{ listing.description }}</small></p>
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+        <div class="d-flex justify-content-center mb-4">
+            <form action="{% url 'view' listing.id %}" method="post">
+                {% csrf_token %}
+                {% if not clicked %}
+                    <button type="submit" class="btn btn-primary">Add to my wishlist</button>
+                {% else %}
+                    <button type="submit" class="btn btn-outline-primary">Remove from my wishlist</button>
+                {% endif %}
+            </form>
+        </div>
+
+        {% if listing.active %}
+            <div class="d-flex justify-content-center mb-4">
+                <div class="card" style="width: 40%;">
+                    <div class="card-body">
+                        <p>Starting Bid: {{ listing.startingbid }}$</p>
+                        <form action="{% url 'view' listing.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="higherBid" class="form-label">Lowest Bid: {{ highest }}$</label>
+                                <input id="higherBid" name="higherBid" class="form-control" type="text" placeholder="Enter your bid" aria-label="Enter a higher bid">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-3" name="Bid">Place Bid</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% if too_less %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    The bid is too low
+                </div>
+            {% endif %}
+
+            {% if close and listing.active %}
+                <form action="{% url 'view' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center mb-4">
+                        <button type="submit" class="btn btn-danger" name="close">Close listing</button>
+                    </div>    
+                </form>
+            {% endif %}
+        {% endif %}
+
+        <div class="d-flex justify-content-center mb-4">
+            <div class="card" style="width: 40%;">
+                <div class="card-body">
+                    {% for comment in comments %}
+                        <p>{{ comment.author }}: {{ comment.message }} </p>
+                    {% endfor %}    
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'view' listing.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="new" class="form-label">Write a comment</label>
+                                <input id="new" name="new" class="form-control" type="text" placeholder="Comments" aria-label="Comments">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-3" name="comments">Comment</button>
+                        </form>
+                    {% endif %}    
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

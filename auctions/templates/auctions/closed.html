@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Closed Listings</h2>
+    {% if message %}
+        <div class="alert alert-primary" role="alert">
+            You have won the auction for:
+            {% for i in lists %}
+                {{ i }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% for listing in listings %}    
+        <div class="d-flex justify-content-center flex-wrap">
+            <div class="card" style="width: 50%;">
+                <img src="{{ listing.url }}" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'view' listing.id %}">{{ listing.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ listing.startingbid }}$</p>
+                    <p class="card-text"><small class="text-body-secondary">{{ listing.description }}</small></p>
+                </div>
+            </div>  
+        </div>  
+    {% endfor %}
+{% endblock %}
