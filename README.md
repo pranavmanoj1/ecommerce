@@ -56,21 +56,21 @@ python manage.py runserver
 Visit http://127.0.0.1:8000/ in your web browser.
 
 ## Models
-The application uses the following models:
 
-User: Inherits from Django's AbstractUser, representing users of the platform.
-Listing: Represents an auction listing with fields for title, description, starting bid, image, and category.
-Bid: Represents a bid placed on a listing.
-Comment: Represents a comment made on a listing.
-Watchlist: Allows users to track their favorite listings.
+- **User**: Inherits from Django's `AbstractUser`, representing users of the platform.
+- **Listing**: Represents an auction listing with fields for title, description, starting bid, image, and category.
+- **Bid**: Represents a bid placed on a listing.
+- **Comment**: Represents a comment made on a listing.
+- **Watchlist**: Allows users to track their favorite listings.
 
 ## How to Use
-Register: Create an account or log in.
-Create Listing: Navigate to the create listing page to post an auction.
-View Listings: Explore active listings on the homepage or browse by category.
-Bid on Listings: Place bids on items of interest.
-Watchlist: Add items to your watchlist for easy tracking.
-Close Auction: If you created the listing, you can close the auction and declare a winner.
-Leave Comments: Discuss listings by leaving comments on the listing page
+
+- **Register**: Create an account or log in.
+- **Create Listing**: Navigate to the create listing page to post an auction.
+- **View Listings**: Explore active listings on the homepage or browse by category.
+- **Bid on Listings**: Place bids on items of interest.
+- **Watchlist**: Add items to your watchlist for easy tracking.
+- **Close Auction**: If you created the listing, you can close the auction and declare a winner.
+- **Leave Comments**: Discuss listings by leaving comments on the listing page.
 
 
